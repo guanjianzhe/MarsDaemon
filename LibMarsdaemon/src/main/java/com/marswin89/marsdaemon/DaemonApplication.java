@@ -21,10 +21,9 @@ public abstract class DaemonApplication extends Application{
 	
 	private IDaemonClient mDaemonClient;
 	public DaemonApplication(){
-		mDaemonClient = new DaemonClient(getDaemonConfigurations());
+		mDaemonClient = new DaemonClient();
 	}
-	
-	
+
 	/**
 	 * order to prevent performing super.attachBaseContext() by child class</br>
 	 * if do it, it will cause the IllegalStateException if a base context has already been set.

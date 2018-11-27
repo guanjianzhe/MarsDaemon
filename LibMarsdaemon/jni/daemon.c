@@ -71,7 +71,7 @@ int main(int argc, char *argv[]){
 		char* svc_name;
 		if(argc < 13){
 			LOGE("daemon parameters error");
-			return ;
+			return -1;
 		}
 		int i;
 		for (i = 0; i < argc; i ++){
