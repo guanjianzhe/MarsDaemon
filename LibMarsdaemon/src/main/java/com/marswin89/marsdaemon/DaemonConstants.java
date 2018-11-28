@@ -6,7 +6,7 @@ import android.os.Build;
 import java.io.File;
 
 public class DaemonConstants {
-    public static final String TAG = "daemon";
+    public static final String TAG = "Daemon";
     public static final String PRIVATE_DIR = "daemon";
     public static final String SEED_DAEMON_FILE_NAME = "seed_daemon";
     public static final int DAEMON_WATCH_INTERVAL = 60;

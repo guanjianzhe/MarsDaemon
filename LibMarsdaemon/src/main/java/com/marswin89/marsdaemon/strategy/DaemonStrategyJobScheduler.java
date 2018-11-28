@@ -5,6 +5,7 @@ import android.app.job.JobInfo.Builder;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
+import android.os.Build;
 import android.os.Build.VERSION;
 
 import com.marswin89.marsdaemon.DaemonConfigurations;
@@ -33,9 +34,10 @@ public class DaemonStrategyJobScheduler implements IDaemonStrategy {
     public void onPersistentCreate(Context context, DaemonConfigurations configs) {
         this.mContext = context;
         this.mConfigs = configs;
-        if (VERSION.SDK_INT >= 21) {
+        if (VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             (new Thread("daemon") {
                 public void run() {
+                    LogUtils.d("Daemon", "DaemonStrategyJobScheduler::onPersistentCreate-->run");
                     DaemonStrategyJobScheduler.this.startJob();
                 }
             }).start();
@@ -67,15 +69,16 @@ public class DaemonStrategyJobScheduler implements IDaemonStrategy {
             }
 
             try {
+                LogUtils.d("Daemon", "DaemonStrategyJobScheduler::startJob-->try");
                 if (this.mJobScheduler.schedule(builder.build()) <= 0) {
-//                    LogUtils.w("Daemon", "DaemonStrategyJobScheduler::startJob-->failed!!!");
+                    LogUtils.d("Daemon", "DaemonStrategyJobScheduler::startJob-->failed!!!");
                 }
-            } catch (Exception var4) {
-                var4.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         } else {
-//            LogUtils.w("Daemon", "[DaemonStrategyJobScheduler#startJob] ", new IllegalArgumentException("context is null!"));
+            LogUtils.w("Daemon", "[DaemonStrategyJobScheduler#startJob] ", new IllegalArgumentException("context is null!"));
         }
     }
 

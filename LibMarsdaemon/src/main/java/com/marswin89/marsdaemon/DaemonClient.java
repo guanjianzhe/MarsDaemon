@@ -1,17 +1,16 @@
 package com.marswin89.marsdaemon;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.List;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.marswin89.marsdaemon.util.LogUtils;
 import com.marswin89.marsdaemon.util.PackageUtils;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * @author Mars
@@ -75,18 +74,28 @@ public class DaemonClient implements IDaemonClient {
 
     private BufferedReader mBufferedReader;//release later to save time
 
-
     /**
      * do some thing about daemon
      *
      * @param base
      */
     private void initDaemon(Context base) {
+        LogUtils.d("Daemon", "DaemonClient::initDaemon-->enter");
+
+        if (mConfigurations == null) {
+            LogUtils.d("Daemon", "DaemonClient::initDaemon-->exit, mConfigurations == null");
+            return ;
+        }
+
         if (!isDaemonPermitting(base) || mConfigurations == null) {
             return;
         }
         String processName = getProcessName();
         String packageName = base.getPackageName();
+
+        if (LogUtils.sIsLog) {
+            LogUtils.d("Daemon", "DaemonClient::initDaemon-->processName:" + processName + ", pkgName:" + packageName);
+        }
 
         if (processName.startsWith(mConfigurations.PERSISTENT_CONFIG.PROCESS_NAME)) {
             IDaemonStrategy.Fetcher.fetchStrategy().onPersistentCreate(base, mConfigurations);

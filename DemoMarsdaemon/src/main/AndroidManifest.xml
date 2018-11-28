@@ -19,10 +19,55 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".Service1" android:process=":process1"/>
-        <receiver android:name=".Receiver1" android:process=":process1"/>
+        <service android:name=".Service1" />
+        <receiver android:name=".Receiver1" />
         <service android:name=".Service2" android:process=":process2"/>
         <receiver android:name=".Receiver2" android:process=":process2"/>
+
+        <!-- 任务服务，必须配置在主常驻进程里 -->
+        <service
+            android:name="com.marswin89.marsdaemon.JobSchedulerService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <!-- 开机自动重启Receiver，进程名称要和被守护的进程一致 -->
+        <receiver android:name="com.marswin89.marsdaemon.BootCompleteReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <!-- WIFI状态变化 -->
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+            <intent-filter android:priority="999">
+
+                <!-- 网络连接变化 -->
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <!-- 开机广播 -->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!-- 解锁完成后会调用 -->
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <!-- 壁纸变化 -->
+                <action android:name="android.intent.action.WALLPAPER_CHANGED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_RESTARTED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <intent-filter android:priority="99999">
+
+                <!-- "*#*#开头 #*#*结尾"的拨号 -->
+                <action android:name="android.provider.Telephony.SECRET_CODE" />
+
+                <data android:scheme="android_secret_code" />
+            </intent-filter>
+            <intent-filter>
+
+                <!-- SD卡挂载、卸载 -->
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+
+                <data android:scheme="file" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
