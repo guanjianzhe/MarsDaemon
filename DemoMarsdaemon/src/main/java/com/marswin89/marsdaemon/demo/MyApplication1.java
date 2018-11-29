@@ -31,13 +31,13 @@ public class MyApplication1 extends DaemonApplication {
     protected DaemonConfigurations getDaemonConfigurations() {
         DaemonConfigurations.DaemonConfiguration configuration1 = new DaemonConfigurations.DaemonConfiguration(
                 "com.marswin89.marsdaemon.demo:process1",
-                Service1.class.getCanonicalName(),
-                Receiver1.class.getCanonicalName());
+                DaemonService.class.getCanonicalName(),
+                DaemonReceiver.class.getCanonicalName());
 
         DaemonConfigurations.DaemonConfiguration configuration2 = new DaemonConfigurations.DaemonConfiguration(
                 "com.marswin89.marsdaemon.demo:process2",
-                Service2.class.getCanonicalName(),
-                Receiver2.class.getCanonicalName());
+                AssistService.class.getCanonicalName(),
+                AssistReceiver.class.getCanonicalName());
 
         DaemonConfigurations.DaemonListener listener = new MyDaemonListener();
         //return new DaemonConfigurations(configuration1, configuration2);//listener can be null

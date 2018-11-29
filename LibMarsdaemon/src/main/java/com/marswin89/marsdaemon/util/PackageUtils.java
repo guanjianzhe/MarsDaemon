@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import com.marswin89.marsdaemon.DaemonConstants;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -61,7 +63,7 @@ public class PackageUtils {
     }
 
     public static void startService(Context context, String serviceClassName, boolean isSetFromDaemonSdk) {
-        LogUtils.i("Daemon", "[PackageUtils::startService] serviceClassName:" + serviceClassName);
+        LogUtils.i(DaemonConstants.TAG, "[PackageUtils::startService] serviceClassName:" + serviceClassName);
         if (context != null && serviceClassName != null) {
             Intent intent = new Intent();
             ComponentName componentName = new ComponentName(context.getPackageName(), serviceClassName);
@@ -127,7 +129,7 @@ public class PackageUtils {
             try {
                 context.startService(intent);
             } catch (Throwable var3) {
-                LogUtils.e("Daemon", "error-->", var3);
+                LogUtils.e(DaemonConstants.TAG, "error-->", var3);
             }
 
         }

@@ -24,7 +24,7 @@ public class JobSchedulerService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        LogUtils.i("Daemon", "JobSchedulerService::onStartJob-->");
+        LogUtils.i(DaemonConstants.TAG, "JobSchedulerService::onStartJob-->");
         this.checkStartPersistentService();
         this.hookJobHandler(this);
         this.jobFinished(params, false);
@@ -39,7 +39,7 @@ public class JobSchedulerService extends JobService {
     private void checkStartPersistentService() {
         String persistentServiceName = DaemonClient.getInstance().getPersistentServiceName();
         if (!PackageUtils.isServiceRunning(this, persistentServiceName)) {
-            LogUtils.i("Daemon", "JobSchedulerService::checkStartPersistentService-->启动被守护进程的服务");
+            LogUtils.i(DaemonConstants.TAG, "JobSchedulerService::checkStartPersistentService-->启动被守护进程的服务");
             PackageUtils.startService(this, persistentServiceName);
         }
 
@@ -47,19 +47,19 @@ public class JobSchedulerService extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters params) {
-        LogUtils.i("Daemon", "JobSchedulerService::onStopJob-->");
+        LogUtils.i(DaemonConstants.TAG, "JobSchedulerService::onStopJob-->");
         return false;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        LogUtils.i("Daemon", "JobSchedulerService::onCreate-->");
+        LogUtils.i(DaemonConstants.TAG, "JobSchedulerService::onCreate-->");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtils.i("Daemon", "JobSchedulerService::onStartCommand-->");
+        LogUtils.i(DaemonConstants.TAG, "JobSchedulerService::onStartCommand-->");
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -100,7 +100,7 @@ public class JobSchedulerService extends JobService {
                 return true;
             } else {
                 if (msg != null && LogUtils.sIsLog) {
-                    LogUtils.i("Daemon", "JobSchedulerService::handleMessage-->msg.what=" + msg.what);
+                    LogUtils.i(DaemonConstants.TAG, "JobSchedulerService::handleMessage-->msg.what=" + msg.what);
                 }
 
                 try {

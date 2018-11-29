@@ -16,6 +16,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         //you have to start the service once.
-        startService(new Intent(MainActivity.this, Service1.class));
+        startService(new Intent(MainActivity.this, DaemonService.class));
     }
 }

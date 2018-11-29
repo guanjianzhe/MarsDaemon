@@ -17,12 +17,12 @@ public class BootCompleteReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
         if (LogUtils.sIsLog) {
-            LogUtils.i("Daemon", "BootCompleteReceiver::onReceive-->action:" + intent.getAction());
+            LogUtils.i(DaemonConstants.TAG, "BootCompleteReceiver::onReceive-->action:" + intent.getAction());
         }
 
         String persistentServiceName = DaemonClient.getInstance().getPersistentServiceName();
         if (DaemonClient.getInstance().isDaemonPermitting(context) && isHandle() && !PackageUtils.isServiceRunning(context, persistentServiceName)) {
-            LogUtils.i("Daemon", "BootCompleteReceiver::onReceive-->启动被守护的进程");
+            LogUtils.i(DaemonConstants.TAG, "BootCompleteReceiver::onReceive-->启动被守护的进程");
             PackageUtils.startService(context, persistentServiceName);
         }
 

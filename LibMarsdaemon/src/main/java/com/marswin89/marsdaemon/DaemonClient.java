@@ -80,10 +80,10 @@ public class DaemonClient implements IDaemonClient {
      * @param base
      */
     private void initDaemon(Context base) {
-        LogUtils.d("Daemon", "DaemonClient::initDaemon-->enter");
+        LogUtils.d(DaemonConstants.TAG, "DaemonClient::initDaemon-->enter");
 
         if (mConfigurations == null) {
-            LogUtils.d("Daemon", "DaemonClient::initDaemon-->exit, mConfigurations == null");
+            LogUtils.d(DaemonConstants.TAG, "DaemonClient::initDaemon-->exit, mConfigurations == null");
             return ;
         }
 
@@ -94,7 +94,7 @@ public class DaemonClient implements IDaemonClient {
         String packageName = base.getPackageName();
 
         if (LogUtils.sIsLog) {
-            LogUtils.d("Daemon", "DaemonClient::initDaemon-->processName:" + processName + ", pkgName:" + packageName);
+            LogUtils.d(DaemonConstants.TAG, "DaemonClient::initDaemon-->processName:" + processName + ", pkgName:" + packageName);
         }
 
         if (processName.startsWith(mConfigurations.PERSISTENT_CONFIG.PROCESS_NAME)) {

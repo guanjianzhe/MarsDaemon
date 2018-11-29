@@ -113,7 +113,7 @@ public interface IDaemonStrategy {
 
             if (LogUtils.sIsLog) {
                 String strategyName = mDaemonStrategy.getClass().getSimpleName();
-                LogUtils.i("Daemon", "IDaemonStrategy.Fetcher::fetchCombinedStrategy-->安卓版本:" + sdk + ", return:" + strategyName);
+                LogUtils.i(DaemonConstants.TAG, "IDaemonStrategy.Fetcher::fetchCombinedStrategy-->安卓版本:" + sdk + ", return:" + strategyName);
             }
             return mDaemonStrategy;
         }

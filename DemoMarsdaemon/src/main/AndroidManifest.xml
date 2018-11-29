@@ -15,14 +15,25 @@
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <service android:name=".Service1" />
-        <receiver android:name=".Receiver1" />
-        <service android:name=".Service2" android:process=":process2"/>
-        <receiver android:name=".Receiver2" android:process=":process2"/>
+        <!-- 守护进程 -->
+        <service android:name=".DaemonService" />
+        <!-- 守护进程receiver -->
+        <receiver android:name=".DaemonReceiver" />
+
+        <!-- 守护辅助进程 -->
+        <service
+            android:name=".AssistService"
+            android:process=":process2" />
+        <!-- 守护辅助进程receiver -->
+        <receiver
+            android:name=".AssistReceiver"
+            android:process=":process2" />
 
         <!-- 任务服务，必须配置在主常驻进程里 -->
         <service

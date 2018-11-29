@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Build.VERSION;
 
 import com.marswin89.marsdaemon.DaemonConfigurations;
+import com.marswin89.marsdaemon.DaemonConstants;
 import com.marswin89.marsdaemon.IDaemonStrategy;
 import com.marswin89.marsdaemon.JobSchedulerService;
 import com.marswin89.marsdaemon.util.LogUtils;
@@ -37,7 +38,6 @@ public class DaemonStrategyJobScheduler implements IDaemonStrategy {
         if (VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             (new Thread("daemon") {
                 public void run() {
-                    LogUtils.d("Daemon", "DaemonStrategyJobScheduler::onPersistentCreate-->run");
                     DaemonStrategyJobScheduler.this.startJob();
                 }
             }).start();
@@ -69,16 +69,16 @@ public class DaemonStrategyJobScheduler implements IDaemonStrategy {
             }
 
             try {
-                LogUtils.d("Daemon", "DaemonStrategyJobScheduler::startJob-->try");
+                LogUtils.d(DaemonConstants.TAG, "DaemonStrategyJobScheduler::startJob-->try");
                 if (this.mJobScheduler.schedule(builder.build()) <= 0) {
-                    LogUtils.d("Daemon", "DaemonStrategyJobScheduler::startJob-->failed!!!");
+                    LogUtils.d(DaemonConstants.TAG, "DaemonStrategyJobScheduler::startJob-->failed!!!");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         } else {
-            LogUtils.w("Daemon", "[DaemonStrategyJobScheduler#startJob] ", new IllegalArgumentException("context is null!"));
+            LogUtils.w(DaemonConstants.TAG, "[DaemonStrategyJobScheduler#startJob] ", new IllegalArgumentException("context is null!"));
         }
     }
 
@@ -95,9 +95,9 @@ public class DaemonStrategyJobScheduler implements IDaemonStrategy {
 
     @TargetApi(21)
     public void cancelDaemon(Context context) {
-        LogUtils.i("Daemon", "DaemonStrategyJobScheduler::cancelDaemon-->");
+        LogUtils.i(DaemonConstants.TAG, "DaemonStrategyJobScheduler::cancelDaemon-->");
         if (this.mJobScheduler == null) {
-            this.mJobScheduler = (JobScheduler) context.getSystemService("jobscheduler");
+            this.mJobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         }
 
         int jobId = this.getClass().hashCode();
