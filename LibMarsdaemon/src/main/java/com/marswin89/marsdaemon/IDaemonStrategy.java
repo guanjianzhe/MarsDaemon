@@ -8,6 +8,7 @@ import android.os.Build.VERSION_CODES;
 import com.marswin89.marsdaemon.strategy.DaemonStrategy21;
 import com.marswin89.marsdaemon.strategy.DaemonStrategy22;
 import com.marswin89.marsdaemon.strategy.DaemonStrategy23;
+import com.marswin89.marsdaemon.strategy.DaemonStrategyEmpty;
 import com.marswin89.marsdaemon.strategy.DaemonStrategyJobScheduler;
 import com.marswin89.marsdaemon.strategy.DaemonStrategyUnder21;
 import com.marswin89.marsdaemon.strategy.DaemonStrategyXiaomi;
@@ -69,15 +70,11 @@ public interface IDaemonStrategy {
             }
             int sdk = VERSION.SDK_INT;
             if (sdk < VERSION_CODES.LOLLIPOP) {
-                if (Build.MODEL != null && Build.MODEL.toLowerCase().startsWith("mi")) {
-                    mDaemonStrategy = new DaemonStrategyXiaomi();
-                } else if (Build.MODEL != null && Build.MODEL.toLowerCase().startsWith("a31")) {
-                    mDaemonStrategy = new DaemonStrategy21();
-                } else {
-                    mDaemonStrategy = new DaemonStrategyUnder21();
-                }
-            } else if (sdk >= VERSION_CODES.LOLLIPOP) {
+                mDaemonStrategy = new DaemonStrategyEmpty();
+            } else if (sdk < VERSION_CODES.O) {
                 mDaemonStrategy = new DaemonStrategyJobScheduler();
+            } else {
+                mDaemonStrategy = new DaemonStrategyEmpty();
             }
 //            switch (sdk) {
 //                case 24:
