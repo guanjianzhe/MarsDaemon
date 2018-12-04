@@ -2,6 +2,42 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.marswin89.marsdaemon.demo">
 
+    <!-- 危险权限：动态弹窗询问获取权限start -->
+    <!-- 使用相机 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 使用麦克风 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- SD卡读写 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 危险权限：动态弹窗询问获取权限end -->
+
+
+    <!-- 一般权限：默认授权start -->
+    <!-- 获取联网状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 访问Internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 保持亮屏 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 手机震动 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 监听系统开机广播权限:自动重启相关 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 一般权限：默认授权end -->
+
+
+    <!-- 特殊权限start -->
+    <!-- Window相关权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 特殊权限end -->
+
+
+    <!-- 产品特色 -->
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
     <application
         android:name=".MyApplication2"
         android:allowBackup="true"
